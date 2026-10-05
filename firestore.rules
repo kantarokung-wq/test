@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net: default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidCard(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.companyName is string && data.companyName.size() > 0 && data.companyName.size() <= 200
+        && (!('position' in data) || (data.position is string && data.position.size() <= 200))
+        && (!('email' in data) || (data.email is string && data.email.size() <= 200))
+        && (!('phone' in data) || (data.phone is string && data.phone.size() <= 50))
+        && (!('lineId' in data) || (data.lineId is string && data.lineId.size() <= 100))
+        && (!('website' in data) || (data.website is string && data.website.size() <= 500))
+        && (!('address' in data) || (data.address is string && data.address.size() <= 500))
+        && (!('notes' in data) || (data.notes is string && data.notes.size() <= 2000))
+        && (!('imageUrl' in data) || (data.imageUrl is string && data.imageUrl.size() <= 1000000))
+        && (!('tags' in data) || (data.tags is list && data.tags.size() <= 30));
+    }
+
+    // Business Card collection
+    match /cards/{cardId} {
+      allow get, list: if true;
+      allow create: if isValidId(cardId) && isValidCard(request.resource.data);
+      allow update: if isValidId(cardId) && isValidCard(request.resource.data);
+      allow delete: if isValidId(cardId);
+    }
+
+    // Connection testing doc
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

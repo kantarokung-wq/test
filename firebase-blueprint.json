@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "BusinessCard": {
+      "title": "BusinessCard",
+      "description": "A contact record extracted and saved from a business card",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name of the cardholder"
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Company or organization name"
+        },
+        "position": {
+          "type": "string",
+          "description": "Job title or position"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Telephone or mobile number"
+        },
+        "lineId": {
+          "type": "string",
+          "description": "LINE ID contact"
+        },
+        "website": {
+          "type": "string",
+          "description": "Official website URL"
+        },
+        "address": {
+          "type": "string",
+          "description": "Physical company address"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional notes"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Categorization tags"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Thumbnail or image of the card"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Update timestamp"
+        }
+      },
+      "required": [
+        "name",
+        "companyName"
+      ]
+    }
+  },
+  "firestore": {
+    "/cards/{cardId}": {
+      "schema": {
+        "$ref": "#/entities/BusinessCard"
+      },
+      "description": "Collection storing business card contact records"
+    }
+  }
+}

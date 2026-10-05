@@ -1,0 +1,6 @@
+{
+  "name": "Smart Card Vault - ระบบสแกนและจัดการนามบัตรอัจฉริยะ",
+  "description": "แอปพลิเคชันสแกนและบันทึกนามบัตรด้วย AI สกัดข้อมูลชื่อ บริษัท ตำแหน่ง อีเมล เบอร์โทร และ LINE จัดเก็บลงฐานข้อมูล พร้อมโทรออก ส่งอีเมล และจัดการข้อมูลครบวงจร",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
